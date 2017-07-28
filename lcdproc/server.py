@@ -1,3 +1,4 @@
+from __future__ import print_function
 import telnetlib
 import urllib
 import select
@@ -43,7 +44,7 @@ class Server(object):
         """ Request """
         
         self.tn.write((command_string + "\n").encode())
-        if self.debug: print "Telnet Request:  %s" % (command_string)
+        if self.debug: print("Telnet Request:", command_string)
         while True:
             response = urllib.unquote(self.tn.read_until(b"\n").decode())
             if "success" in response:   # Normal successful reply
@@ -54,7 +55,7 @@ class Server(object):
                 break
             # TODO Keep track of which screen is displayed
             # Try again if response was key, menu or visibility notification.
-        if "huh" in response or self.debug: print "Telnet Response: %s" % (response[:-1])
+        if "huh" in response or self.debug: print("Telnet Response:", response[:-1])
         return response
 
 
@@ -67,7 +68,7 @@ class Server(object):
         """
         if select.select([self.tn], [], [], 0) == ([self.tn], [], []):
             response = urllib.unquote(self.tn.read_until(b"\n").decode())
-            if self.debug: print "Telnet Poll: %s" % (response[:-1])
+            if self.debug: print("Telnet Poll:", response[:-1])
             # TODO Keep track of which screen is displayed
             return response
         else:
