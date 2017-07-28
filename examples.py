@@ -7,7 +7,7 @@ from lcdproc.server import Server
 
 def main():
 
-    lcd = Server("media", debug=False)
+    lcd = Server("localhost", debug=False)
     lcd.start_session()
     
     screen1 = lcd.add_screen("Screen1")
