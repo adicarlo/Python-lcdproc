@@ -103,7 +103,7 @@ class Server(object):
         Return key name or None on error
         """
         if ref not in self.keys:   
-            response = self.request("client_add_key %s -%s" % (ref, mode))
+            response = self.request("client_add_key -%s %s" % (mode, ref))
             if "success" not in response: return None
             self.keys.append(ref)
             return ref
