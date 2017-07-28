@@ -1,6 +1,9 @@
 from __future__ import print_function
 import telnetlib
-import urllib
+try:
+    from urllib import unquote
+except ImportError:
+    from urllib.parse import unquote
 import select
 
 from screen import Screen
@@ -46,7 +49,7 @@ class Server(object):
         self.tn.write((command_string + "\n").encode())
         if self.debug: print("Telnet Request:", command_string)
         while True:
-            response = urllib.unquote(self.tn.read_until(b"\n").decode())
+            response = unquote(self.tn.read_until(b"\n").decode())
             if "success" in response:   # Normal successful reply
                 break
             if "huh" in response:       # Something went wrong
@@ -67,7 +70,7 @@ class Server(object):
         LCDd generates strings for key presses, menu events & screen visibility changes.
         """
         if select.select([self.tn], [], [], 0) == ([self.tn], [], []):
-            response = urllib.unquote(self.tn.read_until(b"\n").decode())
+            response = unquote(self.tn.read_until(b"\n").decode())
             if self.debug: print("Telnet Poll:", response[:-1])
             # TODO Keep track of which screen is displayed
             return response
