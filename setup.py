@@ -9,7 +9,7 @@ if sys.version_info >= (3,):
 
 setup(
     name = "lcdproc",
-    version = "0.3",
+    version = "0.3.1",
     author = "JingleManSweep",
     author_email = "jinglemansweep@gmail.com",
     description = "Python OOP Wrapper Library for LCDproc Telnet API",
